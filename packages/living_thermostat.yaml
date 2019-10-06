@@ -1,0 +1,35 @@
+
+
+climate:
+  - platform: mqtt
+    name: Living Thermostat
+    power_command_topic: "homeassistent/living/hvac/deviceOn"
+    temperature_command_topic: "homeassistent/living/hvac/desiredTemperature"
+    json_attributes_topic: "homeassistent/living/hvac/state"
+    current_temperature_topic: "homeassistent/living/hvac/state"
+    current_temperature_template: "{{state_attr('climate.living_thermostat','actualTemperature')}}"
+    mode_state_topic: "homeassistent/living/hvac/state"
+    mode_state_template: >
+      {% if state_attr('climate.living_thermostat','deviceOn') != true %}
+      off
+      {% elif state_attr('climate.living_thermostat','manualMode') == true %}
+      heat
+      {% else %}
+      auto
+      {% endif %}
+    modes: 
+      - "heat"
+      - "auto"
+      - "off"
+    min_temp: 5
+    max_temp: 35
+    temp_step: 0.5
+    precision: 0.5
+    retain: true
+
+sensor:
+  - platform: template
+    sensors:
+      living_thermostat_delta:
+        value_template: "{{ ((state_attr('climate.living_thermostat','desiredTemperature')|float) - (state_attr('climate.living_thermostat','actualTemperature')|float)) | round(2) }}"
+

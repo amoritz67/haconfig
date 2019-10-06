@@ -1,0 +1,21 @@
+device_tracker:
+  - platform: nmap_tracker
+    hosts: 192.168.1.0/24
+
+switch:
+  - platform: wake_on_lan
+    mac_address: "ac:9e:17:4d:06:05"
+    name: Desktop
+    host: 192.168.1.13
+    turn_off:
+      service: shell_command.turn_off_desktop
+  - platform: wake_on_lan
+    mac_address: "78:24:af:41:c7:8a"
+    name: Media
+    host: 192.168.1.22
+    turn_off:
+      service: shell_command.turn_off_media
+
+shell_command:
+  turn_off_desktop: 'ssh homeassistant@192.168.1.13 sudo pm-suspend'
+  turn_off_media: 'ssh homeassistant@192.168.1.22 sudo pm-suspend'

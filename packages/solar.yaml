@@ -1,0 +1,158 @@
+
+sensor:
+  - platform: mqtt
+    name: Solar Inverter 1
+    state_topic: "modbus/solar/1/state"
+    json_attributes_topic: "modbus/solar/1/attr"
+  - platform: mqtt
+    name: Solar Inverter 2
+    state_topic: "modbus/solar/2/state"
+    json_attributes_topic: "modbus/solar/2/attr"
+  - platform: mqtt
+    name: Solar Inverter 3
+    state_topic: "modbus/solar/3/state"
+    json_attributes_topic: "modbus/solar/3/attr"
+  - platform: mqtt
+    name: Solar Inverter 4
+    state_topic: "modbus/solar/4/state"
+    json_attributes_topic: "modbus/solar/4/attr"
+  - platform: template
+    sensors:
+      inverter_1_power:
+        value_template: "{{state_attr('sensor.solar_inverter_1','output_power')}}"
+      inverter_1_temperature:
+        value_template: "{{state_attr('sensor.solar_inverter_1','radiator_mode_1_temperature')}}"
+      inverter_1_today_energy:
+        value_template: "{{state_attr('sensor.solar_inverter_1','today_energy')}}"
+      inverter_2_power:
+        value_template: "{{state_attr('sensor.solar_inverter_2','output_power')}}"
+      inverter_2_temperature:
+        value_template: "{{state_attr('sensor.solar_inverter_2','radiator_mode_1_temperature')}}"
+      inverter_2_today_energy:
+        value_template: "{{state_attr('sensor.solar_inverter_2','today_energy')}}"
+      inverter_3_power:
+        value_template: "{{state_attr('sensor.solar_inverter_3','output_power')}}"
+      inverter_3_temperature:
+        value_template: "{{state_attr('sensor.solar_inverter_3','radiator_mode_1_temperature')}}"
+      inverter_3_today_energy:
+        value_template: "{{state_attr('sensor.solar_inverter_3','today_energy')}}"
+      inverter_4_power:
+        value_template: "{{state_attr('sensor.solar_inverter_4','output_power')}}"
+      inverter_4_temperature:
+        value_template: "{{state_attr('sensor.solar_inverter_4','radiator_mode_1_temperature')}}"
+      inverter_4_today_energy:
+        value_template: "{{state_attr('sensor.solar_inverter_4','today_energy')}}"
+      inverter_1_panel_1:
+        value_template: "{{ ((state_attr('sensor.solar_inverter_1','DC_voltage_1')|float) * (state_attr('sensor.solar_inverter_1','DC_current_1')|float))}}"
+        unit_of_measurement: "W"
+        friendly_name: "inv1 p1"
+        attribute_templates:
+          voltage: "{{ state_attr('sensor.solar_inverter_1','DC_voltage_1')}}"
+          current: "{{ state_attr('sensor.solar_inverter_1','DC_current_1')}}"
+      inverter_1_panel_2:
+        value_template: "{{ ((state_attr('sensor.solar_inverter_1','DC_voltage_2')|float) * (state_attr('sensor.solar_inverter_1','DC_current_2')|float))}}"
+        unit_of_measurement: "W"
+        friendly_name: "inv1 p2"
+        attribute_templates:
+          voltage: "{{ state_attr('sensor.solar_inverter_1','DC_voltage_2')}}"
+          current: "{{ state_attr('sensor.solar_inverter_1','DC_current_2')}}"
+      inverter_1_panel_3:
+        value_template: "{{ ((state_attr('sensor.solar_inverter_1','DC_voltage_3')|float) * (state_attr('sensor.solar_inverter_1','DC_current_3')|float))}}"
+        unit_of_measurement: "W"
+        friendly_name: "inv1 p3"
+        attribute_templates:
+          voltage: "{{ state_attr('sensor.solar_inverter_1','DC_voltage_3')}}"
+          current: "{{ state_attr('sensor.solar_inverter_1','DC_current_3')}}"
+      inverter_1_panel_4:
+        value_template: "{{ ((state_attr('sensor.solar_inverter_1','DC_voltage_4')|float) * (state_attr('sensor.solar_inverter_1','DC_current_4')|float))}}"
+        unit_of_measurement: "W"
+        friendly_name: "inv1 p4"
+        attribute_templates:
+          voltage: "{{ state_attr('sensor.solar_inverter_1','DC_voltage_4')}}"
+          current: "{{ state_attr('sensor.solar_inverter_1','DC_current_4')}}"
+      inverter_2_panel_1:
+        value_template: "{{ ((state_attr('sensor.solar_inverter_2','DC_voltage_1')|float) * (state_attr('sensor.solar_inverter_2','DC_current_1')|float))}}"
+        unit_of_measurement: "W"
+        friendly_name: "inv2 p1"
+        attribute_templates:
+          voltage: "{{ state_attr('sensor.solar_inverter_2','DC_voltage_1')}}"
+          current: "{{ state_attr('sensor.solar_inverter_2','DC_current_1')}}"
+      inverter_1_panel_2:
+        value_template: "{{ ((state_attr('sensor.solar_inverter_2','DC_voltage_2')|float) * (state_attr('sensor.solar_inverter_2','DC_current_2')|float))}}"
+        unit_of_measurement: "W"
+        friendly_name: "inv2 p2"
+        attribute_templates:
+          voltage: "{{ state_attr('sensor.solar_inverter_2','DC_voltage_2')}}"
+          current: "{{ state_attr('sensor.solar_inverter_2','DC_current_2')}}"
+      inverter_1_panel_3:
+        value_template: "{{ ((state_attr('sensor.solar_inverter_2','DC_voltage_3')|float) * (state_attr('sensor.solar_inverter_2','DC_current_3')|float))}}"
+        unit_of_measurement: "W"
+        friendly_name: "inv2 p3"
+        attribute_templates:
+          voltage: "{{ state_attr('sensor.solar_inverter_2','DC_voltage_3')}}"
+          current: "{{ state_attr('sensor.solar_inverter_2','DC_current_3')}}"
+      inverter_2_panel_4:
+        value_template: "{{ ((state_attr('sensor.solar_inverter_2','DC_voltage_4')|float) * (state_attr('sensor.solar_inverter_2','DC_current_4')|float))}}"
+        unit_of_measurement: "W"
+        friendly_name: "inv2 p4"
+        attribute_templates:
+          voltage: "{{ state_attr('sensor.solar_inverter_2','DC_voltage_4')}}"
+          current: "{{ state_attr('sensor.solar_inverter_2','DC_current_4')}}"
+      inverter_3_panel_1:
+        value_template: "{{ ((state_attr('sensor.solar_inverter_3','DC_voltage_1')|float) * (state_attr('sensor.solar_inverter_3','DC_current_1')|float))}}"
+        unit_of_measurement: "W"
+        friendly_name: "inv3 p1"
+        attribute_templates:
+          voltage: "{{ state_attr('sensor.solar_inverter_3','DC_voltage_1')}}"
+          current: "{{ state_attr('sensor.solar_inverter_3','DC_current_1')}}"
+      inverter_3_panel_2:
+        value_template: "{{ ((state_attr('sensor.solar_inverter_3','DC_voltage_2')|float) * (state_attr('sensor.solar_inverter_3','DC_current_2')|float))}}"
+        unit_of_measurement: "W"
+        friendly_name: "inv3 p2"
+        attribute_templates:
+          voltage: "{{ state_attr('sensor.solar_inverter_3','DC_voltage_2')}}"
+          current: "{{ state_attr('sensor.solar_inverter_3','DC_current_2')}}"
+      inverter_3_panel_3:
+        value_template: "{{ ((state_attr('sensor.solar_inverter_3','DC_voltage_3')|float) * (state_attr('sensor.solar_inverter_3','DC_current_3')|float))}}"
+        unit_of_measurement: "W"
+        friendly_name: "inv3 p3"
+        attribute_templates:
+          voltage: "{{ state_attr('sensor.solar_inverter_3','DC_voltage_3')}}"
+          current: "{{ state_attr('sensor.solar_inverter_3','DC_current_3')}}"
+      inverter_3_panel_4:
+        value_template: "{{ ((state_attr('sensor.solar_inverter_3','DC_voltage_4')|float) * (state_attr('sensor.solar_inverter_3','DC_current_4')|float))}}"
+        unit_of_measurement: "W"
+        friendly_name: "inv3 p4"
+        attribute_templates:
+          voltage: "{{ state_attr('sensor.solar_inverter_3','DC_voltage_4')}}"
+          current: "{{ state_attr('sensor.solar_inverter_3','DC_current_4')}}"
+      inverter_4_panel_1:
+        value_template: "{{ ((state_attr('sensor.solar_inverter_4','DC_voltage_1')|float) * (state_attr('sensor.solar_inverter_4','DC_current_1')|float))}}"
+        unit_of_measurement: "W"
+        friendly_name: "inv4 p1"
+        attribute_templates:
+          voltage: "{{ state_attr('sensor.solar_inverter_4','DC_voltage_1')}}"
+          current: "{{ state_attr('sensor.solar_inverter_4','DC_current_1')}}"
+      inverter_4_panel_2:
+        value_template: "{{ ((state_attr('sensor.solar_inverter_4','DC_voltage_2')|float) * (state_attr('sensor.solar_inverter_4','DC_current_2')|float))}}"
+        unit_of_measurement: "W"
+        friendly_name: "inv4 p2"
+        attribute_templates:
+          voltage: "{{ state_attr('sensor.solar_inverter_4','DC_voltage_2')}}"
+          current: "{{ state_attr('sensor.solar_inverter_4','DC_current_2')}}"
+      inverter_4_panel_3:
+        value_template: "{{ ((state_attr('sensor.solar_inverter_4','DC_voltage_3')|float) * (state_attr('sensor.solar_inverter_4','DC_current_3')|float))}}"
+        unit_of_measurement: "W"
+        friendly_name: "inv4 p3"
+        attribute_templates:
+          voltage: "{{ state_attr('sensor.solar_inverter_4','DC_voltage_3')}}"
+          current: "{{ state_attr('sensor.solar_inverter_4','DC_current_3')}}"
+      inverter_4_panel_4:
+        value_template: "{{ ((state_attr('sensor.solar_inverter_4','DC_voltage_4')|float) * (state_attr('sensor.solar_inverter_4','DC_current_4')|float))}}"
+        unit_of_measurement: "W"
+        friendly_name: "inv4 p4"
+        attribute_templates:
+          voltage: "{{ state_attr('sensor.solar_inverter_4','DC_voltage_4')}}"
+          current: "{{ state_attr('sensor.solar_inverter_4','DC_current_4')}}"
+
+
