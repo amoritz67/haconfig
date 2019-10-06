@@ -1,7 +1,6 @@
 .HA_VERSION  
 .cloud/  
 .storage/  
-custom_components/
 home-assistant.log  
 home-assistant_v2.db  
 home-assistant_v2.db-shm
