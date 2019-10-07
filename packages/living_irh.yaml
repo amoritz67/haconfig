@@ -63,7 +63,7 @@ sensor:
         unit_of_measurement: "°C"
         value_template: "{{ ((states('sensor.ir_heating_temp_ds18b20_2_temperature')|float) + (states('input_number.living_irh_zone_1_correction')|float))|round(2) }}"
       living_irh_zone_2_temperature:
-        friendly_name: "Lounce Floor Temperature"
+        friendly_name: "Lounge Floor Temperature"
         unit_of_measurement: "°C"
         value_template: "{{ ((states('sensor.ir_heating_temp_ds18b20_3_temperature')|float) + (states('input_number.living_irh_zone_2_correction')|float))|round(2) }}"
       living_irh_zone_3_temperature:
