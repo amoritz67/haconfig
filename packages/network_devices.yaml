@@ -6,7 +6,7 @@ switch:
   - platform: wake_on_lan
     mac_address: "ac:9e:17:4d:06:05"
     name: Desktop
-    host: 192.168.1.13
+    host: 192.168.1.13 
     turn_off:
       service: shell_command.turn_off_desktop
   - platform: wake_on_lan
