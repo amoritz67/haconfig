@@ -3,6 +3,8 @@
 climate:
   - platform: mqtt
     name: Living Thermostat
+    payload_on: "true"
+    payload_off: "false"
     power_command_topic: "homeassistent/living/hvac/deviceOn"
     temperature_command_topic: "homeassistent/living/hvac/desiredTemperature"
     json_attributes_topic: "homeassistent/living/hvac/state"
