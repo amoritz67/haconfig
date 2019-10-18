@@ -11,7 +11,31 @@ remote:
     commands:
       speakers_toggle:
         command: "raw:nMwmkwlk0mk4mEsmoAZgGEAOk1ADKbADsAeUxmwChgIUBR4FHgEMAigDxgZUAhAFfgV+C94IfgUeEP4Lfg7eBX4FfgEFMIAA"
+      speakers_volume_up:
+        command: "raw:nMwmUwlk0mswmEsms5ADIAwprOAAymgAZTUAtptMJZMZsAQYCFAQIBgYFHzabgILMZsA6YAZAdKBk4BZAIQBX4FfgIIBEYCHgeYEj4SLgqKAwYMtzaYgGEAGYWfhD8DK0wgA"
+      speakers_volume_down:
+        command: "raw:nMwmUwlk0mswmEsms2ADKaABlOAB2moBbALlMZtNwEGAHMCjwKPAQOYzacgEEAGQCKgGHMQELADICvwK/AQgFfQaTAiMHlwkbAXoFSAKPAocFvwh/AIOYQA="
+      speakers_volume_mute:
+        command: "raw:nE5nMwlk0msymEsms2ADKaABlOAB2moBbALlMZsAQYCFAFwBR4FDzGbArkAqYCKgtuBEc3mAFfgV6BOc3Ar8IDwENmYGTBI0CpAUXgleEP4O0AqFMIAA"
+      speakers_woofer_up:
+        command: "raw:nMwmUwlk0mswmEsms2ADKbgBlNQAynAAZTMA9gFymM3AgMBCgKPAo8AhgISmM2nIGWgIQBX4DXzWaANUB6gCBBAeEAgC/hMeCj4NngNeA1EwgAA="
+      speakers_woofer_down:
+        command: "raw:nE5nMwlk0msymEsmszADKbgBlNgB2moAZTgBdZjN5gAhoFHgLpNAKKmM2BXICEwEVAyoBBQK/Aa8G/wb/BvYBfwL/BR8GzwGvAasAgphAA=="
+      speakers_center_up:
+        command: "raw:nMwmUwlk0mswmEsms2ADKagBlOAAymgBdALlMZsAQYCFAUeBR4BBTkBVQEVAyoBCAK/ArsFYwPPBv8Bfwh/AQ8Gzwh/Aa8BophAA"
+      speakers_center_down:
+        command: "raw:nE5nMwlk0mszmEsms1ADqbgBlMphLJtMAD1mM2nACFAWGAeYFHgLlMZvMQMXBXIB0wCFAaIEvQK4A8IDSQCEBeoE7gcDA8YIDAF6Bl8BCAA0Bs8LPwZGAaiYQAA="
+      speakers_surround_up:
+        command: "raw:nMwmUwlk0mswmEsms2ADKagBlOAAymgA7AHmAuUxmwBjgDmBQYEDgDmAvQFCgBlMZsBKYBCAZcAhAKkTGbTkCvwXvm4C/hHcFvYKPg2eA14DXgNVMIAA"
+      speakers_surround_down:
+        command: "raw:nMwmMwlk0mswmEsms1ADqbgDtOAB1mM2AIYBBwKMmUwlk2BAYChQECmM3AEIBFJuDAU1mYJdAIOAQoFcAPEB6oFdAvOBUoTHhWeFh4Q+ASvMZtOQh7Ar8KLZhAA="
+      speakers_surround_delay:
+        command: "raw:nMwmUwlk0mswmEsms2ADKaADtNwAymoAZTgAMpnMJZMZuBAYCFAQIAWYGBgLuBwUxmwBBgIFMZtOQEWA6QDKgIlBUsCvwGvA1kGHwg/DE8LPwL/BR8Gz5hAA"
+      speakers_effect:
+        command: "raw:nE5nMwlk0msymEsmszADKbgBlNgB2moAZTgBdZjN5gAhoFHgUfLJjNgVyAhMBFQMqAQgCvwGvBX8CvwV+CK8G/wKPBb8FvwGjmEA"
 
+      beamer_toggle:
+        command: "raw:nE5mswlk0mk3mEsms2mEsmM2AIMBEgCImoA7gOkAxIFVgQ+Af4B8AD+AP4F/gL+Af4E/hQ+GZ4DXgR+A10wgAA=="  
 
 script:
   speakers_toggle_onoff:
@@ -21,4 +45,11 @@ script:
         data:
           command:
             - 'speakers_toggle'
+  beamer_toggle_onoff:
+    sequence:
+      - service: remote.send_command
+        entity_id: 'remote.living_remote'
+        data:
+          command:
+            - 'beamer_toggle' 
 
