@@ -1,0 +1,43 @@
+sensor:
+  - platform: mqtt
+    name: Smartmeter Power In Low Total 
+    state_topic: "smartmeter/1.8.1/state"
+    json_attributes_topic: "smartmeter/1.8.1/attr"
+    device_class: power
+  - platform: mqtt
+    name: Smartmeter Power In High Total
+    state_topic: "smartmeter/1.8.2/state"
+    json_attributes_topic: "smartmeter/1.8.2/attr"
+    device_class: power
+  - platform: mqtt
+    name: Smartmeter Power Out Low Total
+    state_topic: "smartmeter/2.8.1/state"
+    json_attributes_topic: "smartmeter/1.7.0/attr"
+    device_class: power
+  - platform: mqtt
+    name: Smartmeter Power Out High Total
+    state_topic: "smartmeter/2.8.2/state"
+    json_attributes_topic: "smartmeter/2.8.2/attr"
+    device_class: power
+  - platform: mqtt
+    name: Smartmeter Power In Now
+    state_topic: "smartmeter/1.7.0/state"
+    json_attributes_topic: "smartmeter/1.7.0/attr"
+    device_class: power
+  - platform: mqtt
+    name: Smartmeter Power Out Now
+    state_topic: "smartmeter/2.7.0/state"
+    json_attributes_topic: "smartmeter/2.7.0/attr"
+    device_class: power
+  - platform: mqtt
+    name: Smartmeter Gas
+    state_topic: "smartmeter/24.2.1/state"
+    json_attributes_topic: "smartmeter/24.2.1/attr"
+    device_class: power
+  - platform: mqtt
+    name: Smartmeter Power Tarif Now
+    state_topic: "smartmeter/96.14.0/state"
+    json_attributes_topic: "smartmeter/96.14.0/attr"
+    device_class: power
+
+

@@ -1,0 +1,24 @@
+
+#https://github.com/jghaanstra/com.xiaomi-miio/blob/master/docs/obtain_token.md
+remote:
+  - platform: xiaomi_miio
+    host: 192.168.1.60
+    token: !secret xiaomi_ir_remote 
+    name: Living Remote
+    #slot: 1
+    timeout: 30
+    hidden: false
+    commands:
+      speakers_toggle:
+        command: "raw:nMwmkwlk0mk4mEsmoAZgGEAOk1ADKbADsAeUxmwChgIUBR4FHgEMAigDxgZUAhAFfgV+C94IfgUeEP4Lfg7eBX4FfgEFMIAA"
+
+
+script:
+  speakers_toggle_onoff:
+    sequence:
+      - service: remote.send_command
+        entity_id: 'remote.living_remote'
+        data:
+          command:
+            - 'speakers_toggle'
+

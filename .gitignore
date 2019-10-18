@@ -8,4 +8,4 @@ home-assistant_v2.db-wal
 known_devices.yaml 
 secrets.yaml  
 tts/
-
+deps/
