@@ -17,13 +17,13 @@ switch:
       switch1:
         friendly_name: Living Lighting Dining
         id: 1
-  - platform: localtuya
-    host: 192.168.1.22
-    local_key: !secret toilet_lighting_key 
-    device_id: bf57a2302d03808a80u94k
-    protocol: 3.3
-    switches:
-      switch1:
-        friendly_name: Toilet Lighting 
-        id: 1
+#  - platform: localtuya
+#    host: 192.168.1.22
+#    local_key: !secret toilet_lighting_key 
+#    device_id: bf57a2302d03808a80u94k
+#    protocol: 3.3
+#    switches:
+#      switch1:
+#        friendly_name: Toilet Lighting 
+#        id: 1
 

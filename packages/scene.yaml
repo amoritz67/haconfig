@@ -1,0 +1,37 @@
+
+
+input_select:
+  home_scene:
+    name: Home Scene
+    options:
+      - Out
+      - Sleeping
+      - Holiday
+  living_scene:
+    name: Living Scene
+    options:
+      - Cozy
+      - Movie
+      - Working
+      - Out
+  hallway_scene:
+    name: Hallway Scene
+    options:
+      - Normal
+      - Visitors
+      - Out
+  bedroom_scene:
+    name: Bedroom Scene
+    options:
+      - Normal
+      - Cozy
+      - Out
+  bathroom_scene:
+    name: Bathroom Scene
+    options:
+      - Waking up
+      - Bedtime 
+      - Nightwalker 
+      - Cozy
+      - Out
+
