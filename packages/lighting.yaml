@@ -1,0 +1,5 @@
+variable:
+  lighting_automation_enabled:
+    value: false
+    attributes:
+      friendly_name: Is Lighting Automation Enabled

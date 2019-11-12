@@ -1,0 +1,13 @@
+#- alias: Solar Summary
+#  trigger:
+#    - platform: time_pattern
+#      minutes: "/1"
+##  action:
+#    - service: variable.set_variable
+#      data:
+#        variable: solar_power_total
+#        value_template: "{{ states('sensor.inverter_1_power')|int + states('sensor.inverter_2_power')|int + states('sensor.inverter_3_power')|int + states('sensor.inverter_4_power')|int }}"
+#    - service: variable.set_variable
+#      data:
+#        variable: #solar_power_average
+#        value_template: "{{ (states('variable.solar_power_total')|int / 14)|float(2) }}"

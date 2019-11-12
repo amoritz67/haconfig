@@ -1,0 +1,26 @@
+- alias: Living Sockets Scene On
+  trigger:
+    - platform: state
+      entity_id: input_select.scene_living
+#    - platform: state
+#      entity_id: input_boolean.lighting_automation_enabled
+  action:
+    - service_template: switch.turn_on 
+      data_template: 
+        entity_id: >
+          {% if states('input_select.scene_living') == 'Movie' or states('input_select.scene_living') == 'Cozy' %}
+          switch.living_socket_left_1
+          {% endif %}
+- alias: Living Socket Scene Off
+  trigger:
+    - platform: state
+      entity_id: input_select.scene_living
+#    - platform: state
+#      entity_id: input_boolean.lighting_automation_enabled
+  action:
+    - service: switch.turn_off
+      data_template: 
+        entity_id: >
+          {% if states('input_select.scene_living') != 'Movie' and states('input_select.scene_living') != 'Cozy' %}
+          switch.living_socket_left_1
+          {% endif %}

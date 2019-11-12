@@ -1,0 +1,18 @@
+- alias: Lighting Automation Enable
+  trigger:
+    - platform: time_pattern 
+      minutes: "/1"
+    - platform: sun
+      event: sunset
+      offset: "-00:30:00"
+  action:
+    - service: variable.set_variable
+      data:
+        value_template: > 
+          {% if states('sensor.steensel_irradiance')|int < 60 or states('sensor.illumination_50ec50c5311e')|int < 500 %}
+          1 
+          {% else %}
+          0
+          {% endif %}
+        variable: lighting_automation_enabled
+

@@ -1,0 +1,11 @@
+switch:
+  - platform: localtuya
+    host: 192.168.1.53
+    local_key: !secret kitchen_socket_key
+    device_id: 347550612cf432a2cb92 
+    protocol: 3.3
+    switches:
+      switch1:
+        friendly_name: Kitchen Socket 
+        id: 1
+

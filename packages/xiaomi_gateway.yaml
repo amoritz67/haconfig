@@ -1,5 +1,5 @@
 xiaomi_aqara:
-  discovery_retry: 5
+  discovery_retry: 100
   gateways: 
     - host: 192.168.1.64
-      key: !secret xiaomi_gateway
+      key: !secret xiaomi_gateway_key

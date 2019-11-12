@@ -202,5 +202,15 @@ sensor:
         attribute_templates:
           voltage: "{{ state_attr('sensor.solar_inverter_4','DC_voltage_4')}}"
           current: "{{ state_attr('sensor.solar_inverter_4','DC_current_4')}}"
-
-
+      solar_power_total:
+        unit_of_measurement: "kW"
+        value_template: "{{ (states('sensor.inverter_1_power')|int + states('sensor.inverter_2_power')|int + states('sensor.inverter_3_power')|int + states('sensor.inverter_4_power')|int)/1000.0 }}"
+      solar_power_average:
+        value_template: "{{ ((states('sensor.solar_power_total')|int*1000.0) / 14.0)|round(2) }}"
+        unit_of_measurement: "W"
+      solar_irradiance_estimate: 
+        value_template: "{{ (((states('sensor.solar_power_average')|float)/1.5) * (1/0.19))|round(2) }}"
+        unit_of_measurement: "W/m2"
+      solar_energy_today: 
+        unit_of_measurement: "kWh"
+        value_template:  "{{ states('sensor.inverter_1_energy_today')|float + states('sensor.inverter_2_energy_today')|float + states('sensor.inverter_3_energy_today')|float + states('sensor.inverter_4_energy_today')|float }}"

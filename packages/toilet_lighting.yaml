@@ -1,0 +1,10 @@
+switch:
+  - platform: localtuya
+    host: 192.168.1.28
+    local_key: !secret toilet_lighting_key
+    device_id: bf6dee0c595c7c059d6664
+    protocol: 3.3
+    switches:
+      switch1:
+        friendly_name: Toilet Lighting
+        id: 1

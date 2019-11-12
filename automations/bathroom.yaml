@@ -1,0 +1,18 @@
+- alias: Set Ventilation on
+  trigger:
+    - platform: template 
+      value_template: "{{ states('sensor.humidity_158d0003a2ce04')|float > 80 }}"
+  action:
+    - service: switch.turn_on
+      data: 
+        entity_id: switch.ventilation
+- alias: Set Ventilation off   
+  trigger:
+    - platform: template
+      value_template: "{{ states('sensor.humidity_158d0003a2ce04')|float <= 80 }}"
+  action:
+    - service: switch.turn_off
+      data:
+        entity_id: switch.ventilation 
+
+

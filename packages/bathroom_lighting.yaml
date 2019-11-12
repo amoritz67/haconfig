@@ -1,0 +1,13 @@
+switch:
+  - platform: localtuya
+    host: 192.168.1.32
+    local_key: !secret bathroom_lighting_key
+    device_id: bf87ca966f460318f8zxyg
+    protocol: 3.3
+    switches:
+      switch1:
+        friendly_name: Bathroom Mirror Lighting
+        id: 1
+      switch2:
+        friendly_name: Bathroom Lighting
+        id: 2

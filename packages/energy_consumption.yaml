@@ -1,0 +1,7 @@
+sensor:
+  - platform: template
+    sensors:
+      energy_consumption:
+        value_template: "{{ (states('sensor.solar_power_total')|float - states('sensor.smartmeter_power_out_now')|float + states('sensor.smartmeter_power_in_now')|float)|round(3) }}"
+        device_class: power
+        unit_of_measurement: kW 

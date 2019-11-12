@@ -3,7 +3,7 @@
 remote:
   - platform: xiaomi_miio
     host: 192.168.1.60
-    token: !secret xiaomi_ir_remote 
+    token: !secret xiaomi_ir_remote_key 
     name: Living Remote
     #slot: 1
     timeout: 30

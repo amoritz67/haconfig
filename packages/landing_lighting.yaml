@@ -1,0 +1,13 @@
+switch:
+  - platform: localtuya
+    host: 192.168.1.30
+    local_key: !secret landing_lighting_key
+    device_id: bf91e091ed4172d7ccmm5s
+    protocol: 3.3
+    switches:
+      switch1:
+        friendly_name: Attic Lighting
+        id: 1
+      switch2:
+        friendly_name: Landing Lighting
+        id: 2

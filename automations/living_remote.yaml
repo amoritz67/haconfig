@@ -1,0 +1,15 @@
+
+#TODO: problem we don't know the actual state of the remote devices
+#TODO: audio is not correctly initialized -> add delay to start
+- alias: Set Media Movie
+  trigger:
+    - platform: state
+      entity_id: input_select.scene_living
+  action:
+    - service: script.beamer_toggle_onoff
+        #    {% if trigger.from_state.state == 'Media' or trigger.to_state.state == 'Media' %}  
+        #script.beamer_toggle_onoff 
+        # {% endif %}
+    # wait a while for media to come up from hybernation
+    - delay: 00:00:10
+    - service: script.speakers_toggle_onoff

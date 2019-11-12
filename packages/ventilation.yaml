@@ -1,0 +1,11 @@
+switch:
+  - platform: localtuya
+    host: 192.168.1.24
+    local_key: !secret ventilation_key
+    device_id: bf8e45e67256f9704bqyng 
+    protocol: 3.3
+    switches:
+      switch1:
+        friendly_name: Ventilation
+        id: 1
+

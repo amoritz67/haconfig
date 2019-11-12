@@ -198,3 +198,24 @@ automation:
           {% endif %}
         data:
           entity_id: switch.ir_zone_4
+  - alias: Living Heating Scene
+    trigger:
+      - platform: state
+        entity_id: input_select.scene_living
+    action:
+      - service: variable.set_variable
+        data:
+          variable: living_irh_active_zones
+          attributes_template: >
+            {% if states('input_select.scene_living') == 'Working' %}
+            [1,3,2,4]
+            {% elif states('input_select.scene_living') == 'Movie' or states('input_select.scene_living') == 'Cozy' %}
+            [2,3,1,4]
+            (% elif states('input_select.scene_living') == 'Dinner' %}
+            [4,2,3,1]
+            {% elif states('input_select.scene_living') == 'Waking up' %}
+            [4,1,3,2]
+            {% else %}
+            [3,4,2,1]
+            {% endif %}
+

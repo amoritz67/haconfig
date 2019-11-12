@@ -1,0 +1,29 @@
+switch:
+  - platform: localtuya
+    host: 192.168.1.50
+    local_key: !secret living_socket_left_1_key
+    device_id: 34280100600194d17c95 
+    protocol: 3.3
+    switches:
+      switch1:
+        friendly_name: Living Socket Left 1
+        id: 1
+  - platform: localtuya
+    host: 192.168.1.51
+    local_key: !secret living_socket_left_3_key
+    device_id: 347550612cf432a2cbaf
+    protocol: 3.3
+    switches:
+      switch1:
+        friendly_name: Living Socket Left 3
+        id: 1
+  - platform: localtuya
+    host: 192.168.1.54
+    local_key: !secret living_socket_right_1_key
+    device_id: 347550612cf432a2b04a
+    protocol: 3.3
+    switches:
+      switch1:
+        friendly_name: Living Socket Right 1
+        id: 1
+

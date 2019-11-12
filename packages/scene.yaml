@@ -1,32 +1,33 @@
 
 
 input_select:
-  home_scene:
+  scene_home:
     name: Home Scene
     options:
-      - Out
-      - Sleeping
+      - Normal
       - Holiday
-  living_scene:
+      - Out
+  scene_living:
     name: Living Scene
     options:
+      - Waking up
+      - Working
       - Cozy
       - Movie
-      - Working
       - Out
-  hallway_scene:
+  scene_hallway:
     name: Hallway Scene
     options:
       - Normal
       - Visitors
       - Out
-  bedroom_scene:
+  scene_bedroom:
     name: Bedroom Scene
     options:
       - Normal
       - Cozy
       - Out
-  bathroom_scene:
+  scene_bathroom:
     name: Bathroom Scene
     options:
       - Waking up
@@ -35,3 +36,26 @@ input_select:
       - Cozy
       - Out
 
+
+#REMARK: only automate others scenes here. We are using a bottom up approach        
+        #automation:
+#  - alias: Automation Living
+#    trigger:
+#      - platform: state
+#        entity_id: input_select.living_scene
+#    action:
+#      - service: 
+input_text:
+  scene_living_previous:
+    name: Scene Living Previous State
+
+automation:
+  - alias: Scene Living Previous State Auto
+    trigger: 
+      platform: state
+      entity_id: input_select.scene_living
+    action:
+      service: input_text.set_value
+      data_template:
+        entity_id: input_text.scene_living_previous
+        value: "{{trigger.from_state.state}}"

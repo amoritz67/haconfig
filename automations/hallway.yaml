@@ -1,0 +1,27 @@
+# switch light on when motion hall detected and lighting enabled
+#
+- alias: Set Hallway Light on
+  trigger:
+    - platform: state
+      entity_id: binary_sensor.motion_sensor_158d0002f9c944
+      to: 'on'
+    - platform: state
+      entity_id: variable.lighting_automation_enabled
+  condition:
+    - condition: template
+      value_template: "{{ states('variable.lighting_automation_enabled')|int == 1 }}"
+  action:
+    - service: switch.turn_on
+      data:
+        entity_id: switch.hallway_lighting
+- alias: Set Hallway Light off   
+  trigger:
+    - platform: state
+      entity_id: switch.hallway_lighting
+      to: 'on'
+      for: '00:02:00'
+  action:
+    - service: switch.turn_off
+      data:
+        entity_id: switch.hallway_lighting
+

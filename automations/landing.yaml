@@ -1,0 +1,26 @@
+# switch light on for 5min when home scene is sleeping and motion landing detected
+# switch light on for 5min when home scene changed to sleeping within the last 15m and motion hall or motion landing detected
+
+- alias: Set Landing Light on
+  trigger:
+#  - platform: state
+#      entity_id: binary_sensor.motion_sensor_158d0002f9c944
+#      to: 'on'
+    - platform: state
+      entity_id: binary_sensor.motion_sensor_158d0002f0839e
+      to: 'on'
+  action:
+    - service: switch.turn_on
+      data:
+        entity_id: switch.landing_lighting
+- alias: Set Landing Light off  
+  trigger:
+    - platform: state
+      entity_id: switch.landing_lighting
+      to: 'on'
+      for: '00:05:00'
+  action:
+    - service: switch.turn_off
+      data:
+        entity_id: switch.landing_lighting
+

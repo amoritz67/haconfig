@@ -1,0 +1,19 @@
+switch:
+  - platform: localtuya
+    host: 192.168.1.26
+    local_key: !secret corridor_lighting_carport_key
+    device_id: bfc789c5815e788d4e1suy
+    protocol: 3.3
+    switches:
+      switch1:
+        friendly_name: Corridor Lighting Carport
+        id: 1
+  - platform: localtuya
+    host: 192.168.1.27
+    local_key: !secret corridor_lighting_terras_key
+    device_id: bf86a13723b012a9a84zx3
+    protocol: 3.3
+    switches:
+      switch1:
+        friendly_name: Corridor Lighting Terras
+        id: 1

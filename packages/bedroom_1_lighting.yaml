@@ -1,0 +1,10 @@
+switch:
+  - platform: localtuya
+    host: 192.168.1.33
+    local_key: !secret bedroom_1_lighting_key
+    device_id: bf1e805be0c8924298gwv3 
+    protocol: 3.3
+    switches:
+      switch1:
+        friendly_name: Bedroom 1 Lighting
+        id: 1
