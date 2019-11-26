@@ -8,8 +8,8 @@
     - service_template: switch.turn_on 
       data_template: 
         entity_id: >
-          {% if states('input_select.scene_living') == 'Movie' or states('input_select.scene_living') == 'Cozy' %}
-          switch.living_socket_left_1
+          {% if states('input_select.scene_living') == 'Cozy' %}
+          switch.living_socket_right_1
           {% endif %}
 - alias: Living Socket Scene Off
   trigger:
@@ -21,6 +21,6 @@
     - service: switch.turn_off
       data_template: 
         entity_id: >
-          {% if states('input_select.scene_living') != 'Movie' and states('input_select.scene_living') != 'Cozy' %}
-          switch.living_socket_left_1
+          {% if states('input_select.scene_living') != 'Cozy' %}
+          switch.living_socket_right_1
           {% endif %}

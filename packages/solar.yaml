@@ -211,6 +211,6 @@ sensor:
       solar_irradiance_estimate: 
         value_template: "{{ (((states('sensor.solar_power_average')|float)/1.5) * (1/0.19))|round(2) }}"
         unit_of_measurement: "W/m2"
-      solar_energy_today: 
+      solar_today_energy: 
         unit_of_measurement: "kWh"
-        value_template:  "{{ states('sensor.inverter_1_energy_today')|float + states('sensor.inverter_2_energy_today')|float + states('sensor.inverter_3_energy_today')|float + states('sensor.inverter_4_energy_today')|float }}"
+        value_template:  "{{ (states('sensor.inverter_1_today_energy')|float + states('sensor.inverter_2_today_energy')|float + states('sensor.inverter_3_today_energy')|float + states('sensor.inverter_4_today_energy')|float )| round(2)}}"

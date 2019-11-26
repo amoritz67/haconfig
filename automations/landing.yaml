@@ -9,10 +9,14 @@
     - platform: state
       entity_id: binary_sensor.motion_sensor_158d0002f0839e
       to: 'on'
+  condition:
+    - condition: template
+      value_template: "{{ (states('variable.lighting_automation_enabled')|int) == 1 }}"
   action:
     - service: switch.turn_on
       data:
         entity_id: switch.landing_lighting
+
 - alias: Set Landing Light off  
   trigger:
     - platform: state
@@ -23,4 +27,19 @@
     - service: switch.turn_off
       data:
         entity_id: switch.landing_lighting
+
+- alias: Detect Sleep Mode
+  trigger:
+    - platform: state
+      entity_id: binary_sensor.motion_sensor_158d0002f0839e
+      to: 'on'
+  condition:
+    condition: time
+    after: '23:00:00'
+    before: '05:00:00'
+  action:
+    - service: input_select.select_option
+      data:
+        entity_id: input_select.scene_living
+        option: 'Sleeping'
 

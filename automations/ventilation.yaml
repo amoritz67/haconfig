@@ -1,0 +1,60 @@
+#TODO: add temp/humidity sensor in kitchen
+
+- alias: Set Ventilation on Toilet motion
+  trigger:
+    - platform: state
+      entity_id: binary_sensor.motion_sensor_158d0002f08322
+      to: 'on'
+  action:
+    - service: switch.turn_on
+      data: 
+        entity_id: switch.ventilation
+    - service: variable.set_variable
+      data: 
+        variable: ventilation_trigger
+        value: 'toilet' 
+
+- alias: Set Ventilation on Bathroom Humidity
+  trigger:
+    - platform: template 
+      value_template: "{{ states('sensor.humidity_158d0003a2ce04')|float > 80 }}"
+  action:
+    - service: switch.turn_on
+      data: 
+        entity_id: switch.ventilation
+    - service: variable.set_variable
+      data:
+        variable: ventilation_trigger
+        value: 'humidity_bathroom'
+
+# FIXME: this only works correctly if toilet isn't triggered while high humidity 
+# bathroom. Otherwise ventilation will switch off after 5m
+
+- alias: Set Ventilation off Toilet  
+  trigger:
+    - platform: state
+      entity_id: switch.ventilation
+      to: 'on'
+      for: '00:05:00'
+  condition:
+    condition: state
+    entity_id: variable.ventilation_trigger
+    state: 'toilet'
+  action:
+    - service: switch.turn_off
+      data:
+        entity_id: switch.ventilation 
+
+- alias: Set Ventilation off Bathroom Humidity  
+  trigger:
+    - platform: template
+      value_template: "{{ states('sensor.humidity_158d0003a2ce04')|float <= 80 }}"
+  condition:
+    condition: state
+    entity_id: variable.ventilation_trigger
+    state: 'humidity_bathroom'
+  action:
+    - service: switch.turn_off
+      data:
+        entity_id: switch.ventilation 
+

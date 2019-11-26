@@ -2,13 +2,14 @@ switch:
   - platform: localtuya
     host: 192.168.1.31
     local_key: !secret hallway_lighting_key
-    device_id: bf14bd52013005a273ucqv
+    device_id: bfe32bb5914f3d7ff6xzts 
     protocol: 3.3
+    passive: True
     switches:
-      switch1:
+      switch_1:
         friendly_name: Landing Lighting Hotel
         id: 1
-      switch2:
+      switch_2:
         friendly_name: Hallway Lighting
         id: 2
       switch3:

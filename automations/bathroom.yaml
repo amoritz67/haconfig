@@ -15,4 +15,21 @@
       data:
         entity_id: switch.ventilation 
 
+- alias: Set Bathroom Lighting on
+  trigger:
+    - platform: state
+      entity_id: switch.bathroom_lighting
+      to: 'on'
+  action:
+    - service: switch.turn_on
+      entity_id: switch.sonoff_3
 
+- alias: Set Bathroom Lighting off
+  trigger:
+    - platform: state
+      entity_id: switch.bathroom_lighting
+      to: 'off'
+  action:
+    - service: switch.turn_off
+      entity_id: switch.sonoff_3
+ 

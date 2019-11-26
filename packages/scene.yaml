@@ -11,10 +11,12 @@ input_select:
     name: Living Scene
     options:
       - Waking up
+      - Sleeping
       - Working
       - Cozy
       - Movie
       - Out
+      - Cleaning
   scene_hallway:
     name: Hallway Scene
     options:

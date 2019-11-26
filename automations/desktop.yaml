@@ -8,3 +8,20 @@
       data:
         entity_id: input_select.scene_living
         option: 'Working'
+- alias: Desktop Socket On
+  trigger:
+    - platform: state
+      entity_id: switch.desktop
+      to: 'on'
+  action: 
+    - service: switch.turn_on
+      entity_id: switch.desktop_socket
+
+- alias: Desktop Socket Off
+  trigger: 
+    - platform: state
+      entity_id: switch.desktop
+      to: 'off'
+  action: 
+    - service: switch.turn_off
+      entity_id: switch.desktop_socket

@@ -9,3 +9,7 @@ switch:
         friendly_name: Ventilation
         id: 1
 
+variable:
+  ventilation_trigger:
+    value: 'none'
+

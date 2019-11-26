@@ -1,22 +1,29 @@
+
 - alias: Living Lighting Scene On
   trigger:
     - platform: state
       entity_id: input_select.scene_living
     - platform: state
       entity_id: variable.lighting_automation_enabled
+  condition:
+    - condition: template
+      value_template: "{{ (states('variable.lighting_automation_enabled')|int) == 1 }}"
   action:
-    - service_template: switch.turn_on 
+    - service: switch.turn_on 
       data_template: 
         entity_id: >
-          {% if states('variable.lighting_automation_enabled')|int == 1 %}
           {% if states('input_select.scene_living') == 'Working' %}
           switch.living_lighting_dining
           {% elif states('input_select.scene_living') == 'Waking up' %}
           switch.living_lighting_dining, switch.kitchen_lighting
           {% elif states('input_select.scene_living') == 'Cozy' %}
-          switch.living_lighting_dining
+          switch.sonoff, switch.sonoff_2
+          {% elif states('input_select.scene_living') == 'Movie' %}
+          switch.sonoff, switch.sonoff_2
+          {% elif states('input_select.scene_living') == 'Cleaning' %}
+          switch.living_lighting_dining, switch.kitchen_lighting, switch.living_lighting_lounge
           {% endif %}
-          {% endif %}
+
 - alias: Living Lighting Scene Off
   trigger:
     - platform: state
@@ -29,8 +36,10 @@
         entity_id: >
           {% if states('input_select.scene_living') == 'Working' %}
           switch.living_lighting_kitchen
-          {% elif states('input_select.scene_living') == 'Out' or states('input_select.scene_living') == 'Movie' %}
+          {% elif states('input_select.scene_living') == 'Cozy' or states('input_select.scene_living') == 'Movie' %}
           switch.living_lighting_dining, switch.kitchen_lighting, switch.living_lighting_lounge
-          {% elif states('input_select.scene_living') == 'Cozy' %}
-          switch.kitchen_lighting
+          {% elif states('input_select.scene_living') == 'Out' or states('input_select.scene_living') == 'Sleeping' %}
+          switch.living_lighting_dining, switch.kitchen_lighting, switch.living_lighting_lounge, switch.sonoff, switch_sonoff_2
+          {% elif states('input_select.scene_living') == 'Cleaning' %}
+          switch.sonoff, switch.sonoff_2
           {% endif %}

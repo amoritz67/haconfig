@@ -32,7 +32,6 @@ https://github.com/TradeFace/shinemonitor
 Todo
 -------------
 - hallway lighting switch not found
-- solar feed not working
 - movie scene needs testing
 - hallway first switch set landing light automation
 - add pir kitchen + corridor
@@ -42,4 +41,8 @@ Todo
 
 Todo Datascience
 --------------
--  
+- setup influx
+- setup graphana
+- setup jupyter
+- learn heating
+- learn scenes 

@@ -5,11 +5,15 @@
   trigger:
     - platform: state
       entity_id: input_select.scene_living
+  condition:
+    condition: or
+    conditions:
+      - condition: template
+        value_template: "{{ trigger.from_state.state == 'Movie' }}"
+      - condition: template
+        value_template: "{{ trigger.to_state.state == 'Movie' }}"
   action:
-    - service: script.beamer_toggle_onoff
-        #    {% if trigger.from_state.state == 'Media' or trigger.to_state.state == 'Media' %}  
-        #script.beamer_toggle_onoff 
-        # {% endif %}
+    - service: script.beamer_toggle_onoff 
     # wait a while for media to come up from hybernation
     - delay: 00:00:10
     - service: script.speakers_toggle_onoff

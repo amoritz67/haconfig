@@ -1,0 +1,31 @@
+
+# Switch devices on/off based on scene_living state
+- alias: Set Devices Scene On
+  trigger:
+    - platform: state
+      entity_id: input_select.scene_living
+  action:
+    - service_template: switch.turn_on 
+      data_template: 
+        entity_id: >
+          {% if states('input_select.scene_living') == 'Working' %}
+          switch.desktop
+          {% elif states('input_select.scene_living') == 'Movie' or states('input_select.scene_living') == 'Cozy' %}
+          switch.media
+          {% endif %}
+
+- alias: Set Devices Scene Off
+  trigger:
+    - platform: state
+      entity_id: input_select.scene_living
+  action:
+    - service: switch.turn_off
+      data_template: 
+        entity_id: >
+          {% if states('input_select.scene_living') == 'Movie' or states('input_select.scene_living') == 'Cozy' %}
+          switch.desktop
+          {% elif states('input_select.scene_living') == 'Out' or states('input_select.scene_living') == 'Waking up' or states('input_select.scene_living') == 'Sleeping' %}
+          switch.desktop, switch.media
+          {% elif states('input_select.scene_living') == 'Working' %}
+          switch.media
+          {% endif %}

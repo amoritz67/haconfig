@@ -1,6 +1,9 @@
-#device_tracker:
-#  - platform: nmap_tracker
-#    hosts: 192.168.1.0/24
+device_tracker:
+  - platform: nmap_tracker
+    consider_home: 180
+    hosts: 
+      - 192.168.1.11
+      - 192.168.0.10
 
 switch:
   - platform: wake_on_lan
@@ -19,24 +22,4 @@ switch:
 shell_command:
   turn_off_desktop: 'ssh homeassistant@192.168.1.13 sudo pm-suspend'
   turn_off_media: 'ssh homeassistant@192.168.1.14 sudo pm-suspend'
-
-automation:
-  - alias: Devices Living Scene Movie
-    trigger:
-      - platform: state
-        entity_id: input_select.scene_living
-    action:
-      - service_template: > 
-          {% if states('input_select.scene_living') == 'Movie' %}
-          switch.turn_on
-          {% else %}
-          switch.turn_off
-          {% endif %}
-        entity_id: switch.media
-      - service_template: >
-          {% if states('input_select.scene_living') == 'Movie' %}
-          switch.turn_off
-          {% else %}
-          switch.turn_on
-          {% endif %}
-        entity_id: switch.desktop
+  scan_vlink: 'iwlist wlan0 scan | grep -c "38:73:EA:E3:06:3D"'
