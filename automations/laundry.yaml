@@ -1,1 +1,30 @@
-# switch light on for 5min when home scene changed to sleeping within the last 15m
+
+# Laundry Light only switches on when home scene is Normal on Landing Motion detection
+
+- alias: Set Laundry Light on
+  trigger:
+    - platform: state
+      entity_id: binary_sensor.motion_sensor_158d0002f0839e
+      to: 'on'
+  condition:
+    - condition: state
+      entity_id: input_boolean.lighting_automation_enabled
+      state: 'on'
+    - condition: state
+      entity_id: input_select.scene_home
+      state: 'Normal'
+  action:
+    - service: switch.turn_on
+      data:
+        entity_id: switch.laundry_lighting
+
+- alias: Set Laundry Light off
+  trigger:
+    - platform: state
+      entity_id: binary_sensor.motion_sensor_158d0002f0839e 
+      to: 'off'
+      for: '00:02:00'
+  action:
+    - service: switch.turn_off
+      data:
+        entity_id: switch.laundry_lighting

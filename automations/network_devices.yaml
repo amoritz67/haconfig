@@ -4,11 +4,12 @@
   trigger:
     - platform: state
       entity_id: input_select.scene_living
+  # add condition not Out|Cleaning
   action:
     - service_template: switch.turn_on 
       data_template: 
         entity_id: >
-          {% if states('input_select.scene_living') == 'Working' %}
+          {% if states('input_select.scene_living') == 'Normal' %}
           switch.desktop
           {% elif states('input_select.scene_living') == 'Movie' or states('input_select.scene_living') == 'Cozy' %}
           switch.media
@@ -18,14 +19,15 @@
   trigger:
     - platform: state
       entity_id: input_select.scene_living
+  # add condition not Cleaning
   action:
     - service: switch.turn_off
       data_template: 
         entity_id: >
           {% if states('input_select.scene_living') == 'Movie' or states('input_select.scene_living') == 'Cozy' %}
           switch.desktop
-          {% elif states('input_select.scene_living') == 'Out' or states('input_select.scene_living') == 'Waking up' or states('input_select.scene_living') == 'Sleeping' %}
+          {% elif states('input_select.scene_living') == 'Out' %}
           switch.desktop, switch.media
-          {% elif states('input_select.scene_living') == 'Working' %}
+          {% elif states('input_select.scene_living') == 'Normal' %}
           switch.media
           {% endif %}

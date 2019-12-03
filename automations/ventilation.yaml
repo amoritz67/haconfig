@@ -33,9 +33,9 @@
 - alias: Set Ventilation off Toilet  
   trigger:
     - platform: state
-      entity_id: switch.ventilation
-      to: 'on'
-      for: '00:05:00'
+      entity_id: binary_sensor.motion_sensor_158d0002f08322
+      to: 'off'
+      for: '00:03:00'
   condition:
     condition: state
     entity_id: variable.ventilation_trigger

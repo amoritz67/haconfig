@@ -1,0 +1,56 @@
+# binary_sensor.switch_158d00026abf11
+# last_action
+# hold
+# double
+# single
+# long_click_press-> state on -> hold -> state off
+#
+- alias: Set Bedroom 1 Light on
+  trigger:
+    - platform: state
+      entity_id: binary_sensor.motion_sensor_158d0002f0839e
+      to: 'on'
+  condition:
+    - condition: state
+      entity_id: input_boolean.lighting_automation_enabled
+      state: 'on'
+  action:
+    - service: switch.turn_on
+      data_template:
+        entity_id: >
+          {% if states('input_select.scene_bedroom') == 'Normal' %}
+          switch.bedroom_1_lighting
+          {% elif states('input_select.scene_bedroom') == 'Cozy' %}
+          switch.bedroom_1_lighting_bed
+          {% endif %}
+
+- alias: Set Bedroom 1 Light off
+  trigger:
+    - platform: state
+      entity_id: switch.bedroom_1_lighting
+      to: 'on'
+      for: '00:05:00'
+  action:
+    - service: switch.turn_off
+      data:
+        entity_id: switch.bedroom_1_lighting
+
+- alias: Set Bedroom 1 Bedlight on
+  trigger:
+    - platform: state
+      entity_id: switch.xiaomi_button
+  #condition state off
+  action:
+    - service: switch.turn_on
+      data:
+        entity_id: switch.bedroom_1_lighting_bed
+
+- alias: Set Bedroom 1 Bedlight off
+  trigger:
+    - platform: state
+      entity_id: switch.xiaomi_button
+  #condition state on
+  action:
+    - service: switch.turn_off
+      data:
+        entity_id: switch.bedroom_1_lighting_bed

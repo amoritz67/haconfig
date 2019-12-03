@@ -6,13 +6,12 @@
       event: sunset
       offset: "-00:30:00"
   action:
-    - service: variable.set_variable
-      data:
-        value_template: > 
+    - service_template: > 
           {% if (states('sensor.steensel_irradiance')|int < 60 and states('sensor.steensel_irradiance')|int != 0) or states('sensor.illumination_50ec50c5311e')|int < 500 %}
-          1 
+          input_boolean.turn_on
           {% else %}
-          0
+          input_boolean.turn_off
           {% endif %}
-        variable: lighting_automation_enabled
+      data:
+        entity_id: input_boolean.lighting_automation_enabled
 

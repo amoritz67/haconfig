@@ -1,10 +1,20 @@
-- alias: Desktop on set living
-  trigger:
-    - platform: state
-      entity_id: switch.media
-      to: 'on'
-  action:
-    - service: input_select.select_option
-      data:
-        entity_id: input_select.scene_living
-        option: 'Movie'
+# KLUDGE: when living scene is cozy media is switch on and thus this is triggered
+
+#  binary_sensor.cube_158d0002e97f6f
+#  flip90
+#  flip180
+#  rotate
+#  tap_twice
+#  shake_air
+#  move
+#  
+#- alias: Media on set living
+#  trigger:
+#    - platform: state
+#      entity_id: switch.media
+#      to: 'on'
+#  action:
+#    - service: input_select.select_option
+#      data:
+#        entity_id: input_select.scene_living
+#        option: 'Movie'

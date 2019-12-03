@@ -1,34 +1,54 @@
 # switch light on for 5min when home scene is sleeping and motion landing detected
 # switch light on for 5min when home scene changed to sleeping within the last 15m and motion hall or motion landing detected
 
+- alias: Set Landing Light Hotel
+  trigger:
+    - platform: state
+      entity_id: switch.landing_lighting_hotel
+  action:
+    - service_template: "switch.turn_{{trigger.to_state.state}}"
+      data:
+        entity_id: switch.landing_lighting
+
+- alias: Set Landing Light
+  trigger:
+    - platform: state
+      entity_id: switch.landing_lighting
+  action:
+    - service_template: "Switch.turn_{{trigger.to_state.state}}"
+      data:
+        entity_id: switch.landing_lighting_hotel
+
 - alias: Set Landing Light on
   trigger:
-#  - platform: state
-#      entity_id: binary_sensor.motion_sensor_158d0002f9c944
-#      to: 'on'
     - platform: state
       entity_id: binary_sensor.motion_sensor_158d0002f0839e
       to: 'on'
   condition:
-    - condition: template
-      value_template: "{{ (states('variable.lighting_automation_enabled')|int) == 1 }}"
+    - condition: state
+      entity_id: input_boolean.lighting_automation_enabled
+      state: 'on'
   action:
     - service: switch.turn_on
       data:
-        entity_id: switch.landing_lighting
+        entity_id: 
+          - switch.landing_lighting 
+          - switch.landing_lighting_hotel
 
 - alias: Set Landing Light off  
   trigger:
     - platform: state
-      entity_id: switch.landing_lighting
-      to: 'on'
-      for: '00:05:00'
+      entity_id: binary_sensor.motion_sensor_158d0002f0839e 
+      to: 'off'
+      for: '00:03:00'
   action:
     - service: switch.turn_off
       data:
-        entity_id: switch.landing_lighting
+        entity_id: 
+          - switch.landing_lighting
+          - switch.landing_lighting_hotel
 
-- alias: Detect Sleep Mode
+- alias: Detect Bedtime
   trigger:
     - platform: state
       entity_id: binary_sensor.motion_sensor_158d0002f0839e
@@ -40,6 +60,6 @@
   action:
     - service: input_select.select_option
       data:
-        entity_id: input_select.scene_living
-        option: 'Sleeping'
-
+        entity_id: input_select.scene_living, input_select.scene_hallway
+        option: 'Out'
+ 

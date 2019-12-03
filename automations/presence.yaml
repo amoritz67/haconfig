@@ -1,0 +1,108 @@
+- alias: Set HomeScene Out when person away
+  trigger: 
+    - platform: state
+      entity_id: person.niels
+      to: 'not_home'
+  action:
+    - service: input_select.select_option
+      data: 
+        entity_id: input_select.scene_home
+        option: 'Out'
+
+- alias: Set HomeScene Normal when person home
+  trigger: 
+    - platform: state
+      entity_id: person.niels
+      to: 'home'
+  action:
+    - service: input_select.select_option
+      data: 
+        entity_id: input_select.scene_home
+        option: 'Normal'
+
+#- alias: Set Presence on PIR  
+#  trigger: 
+#    - platform: state
+#      entity_id:
+#        - binary_sensor.motion_sensor_158d0002f08322
+#        - binary_sensor.motion_sensor_158d0002f0839e
+#        - binary_sensor.motion_sensor_158d0002f9c772
+#        - binary_sensor.motion_sensor_158d0002f9c944
+#        - binary_sensor.motion_sensor_158d0003cd87cb
+#        - binary_sensor.motion_sensor_158d0003cd887f
+#  condition: 
+#    - condition: or
+#      conditions:
+#        - condition: template 
+#          value_template: '{{ trigger.to_state.state == "on"}}'
+#        - condition: template
+#          value_template: '{{ trigger.to_state.state == "off" and input_text.presence_on == trigger.to_state.attributes.friendly_name}}'
+#  action:
+#    - service: input_text.set_value
+#      data_template:
+#        entity_id: "input_text.presence_{{trigger.to_state.state}}"
+#        value: >        
+#         {% if trigger.to_state.state == 'on' %}
+#         trigger.to_state.attributes.friendly_name
+#         {%%}
+
+
+- alias: Set Presence on PIR 
+  trigger: 
+    - platform: state
+      entity_id:
+        - binary_sensor.motion_sensor_158d0002f08322
+        - binary_sensor.motion_sensor_158d0002f0839e
+        - binary_sensor.motion_sensor_158d0002f9c772
+        - binary_sensor.motion_sensor_158d0002f9c944
+        - binary_sensor.motion_sensor_158d0003cd87cb
+        - binary_sensor.motion_sensor_158d0003cd887f
+  action:
+    - service: input_text.set_value
+      data_template:
+        entity_id: "input_text.presence_{{trigger.to_state.state}}"
+        value: "{{ trigger.to_state.attributes.friendly_name}}"
+    - service_template: >
+          {% set ns = namespace(written=0) %}
+          {% set triggername = trigger.to_state.attributes.friendly_name %}
+          {% for item in ['158d0002f08322','158d0003cd887f','158d0002f0839e', '158d0002f9c772','158d0002f9c944', '158d0003cd87cb'] %}
+                {% if ns.written == 0 and states('binary_sensor.motion_sensor_'+item) == 'on' %}
+                input_boolean.turn_on
+                {% set ns.written = 1 %}
+                {% endif %}
+          {% endfor %}
+          {% if ns.written == 0 and states('input_text.presence_on') == triggername and trigger.to_state.state == 'off' %}
+                {% if triggername == 'Motion Corridor' or triggername == 'Motion Hallway' %}
+                input_boolean.turn_off
+                {% else %}
+                input_boolean.turn_on
+                {% endif %}
+                {% set ns.written = 1 %}
+          {% elif ns.written == 0 and trigger.to_state.state== 'off' %}
+          #{{states('input_text.presence')}} 
+                {% set ns.written = 1 %}
+          {% endif %}
+          {% if ns.written == 0 %}
+          input_boolean.turn_on
+          {% endif %}
+      data:
+        entity_id: input_boolean.presence    
+    - service: input_text.set_value  
+      data_template:
+        entity_id: input_text.presence_location
+        value: >
+          {% set triggername = trigger.to_state.attributes.friendly_name %}
+          {% if trigger.to_state.state == 'on' %}
+          {{triggername|replace('Motion ','')}}
+          {% elif trigger.to_state.state == 'off' and states('input_boolean.presence') == 'off' %}            
+                {% if triggername == 'Motion Corridor' or triggername == 'Motion Hallway' %}
+                Out
+                {% else %}
+                {{triggername|replace('Motion ','')}}
+                {% endif %}
+          {% elif trigger.to_state.state == 'off' %}
+          {{states('input_text.presence_location')}}
+          {% else %}
+          {{triggername|replace("Motion ",'') }}
+          {% endif %}
+

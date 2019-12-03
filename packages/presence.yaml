@@ -1,0 +1,29 @@
+input_text:
+  presence:
+    name: 'Presence'
+    initial: 'false'
+  presence_on:
+    name: 'Presence on'
+    initial: 'none'
+  presence_off:
+    name: 'Presence off'
+    initial: 'none'
+  presence_location:
+    name: 'Presence Location'
+    initial: 'none'
+
+input_boolean:
+  presence:
+    name: 'Presence'
+    initial: off
+
+group:
+  motion:
+    name: Motion Sensors
+    entities:
+      - binary_sensor.motion_sensor_158d0002f08322
+      - binary_sensor.motion_sensor_158d0002f0839e
+      - binary_sensor.motion_sensor_158d0002f9c772
+      - binary_sensor.motion_sensor_158d0002f9c944
+      - binary_sensor.motion_sensor_158d0003cd87cb
+      - binary_sensor.motion_sensor_158d0003cd887f

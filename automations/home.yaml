@@ -1,0 +1,63 @@
+- alias: Scene Living Previous State Auto
+  trigger: 
+    platform: state
+    entity_id: input_select.scene_living
+  action:
+    service: input_text.set_value
+    data_template:
+      entity_id: input_text.scene_living_previous
+      value: "{{trigger.from_state.state}}"
+
+- alias: Scene on set HomeScene Out
+  trigger:
+    - platform: state
+      entity_id: input_select.scene_home     
+      to: 'Out' 
+  action:
+    - service: input_select.select_option
+      data_template:
+        entity_id: input_select.scene_living, input_select.scene_hallway, input_select.scene_bathroom, input_select.scene_bedroom, input_select.scene_laundry
+        option: 'Out'
+
+- alias: Scene on set HomeScene Visitors
+  trigger:
+    - platform: state
+      entity_id: input_select.scene_home     
+      to: 'Visitors' 
+  action:
+    - service: input_select.select_option
+      data_template:
+        entity_id: input_select.scene_living, input_select.scene_bathroom, input_select.scene_bedroom
+        option: 'Cozy'
+    - service: input_select.select_option
+      data_template:
+        entity_id: input_select.scene_hallway
+        option: 'Visitors'
+
+- alias: Scene on set HomeScene Normal
+  trigger:
+    - platform: state
+      entity_id: input_select.scene_home     
+      to: 'Normal' 
+  action:
+    - service: input_select.select_option
+      data_template:
+        entity_id: input_select.scene_hallway, input_select.scene_bathroom, input_select.scene_bedroom, input_select.scene_living, input_select.scene_laundry
+        option: 'Normal'
+
+- alias: Scene on set HomeScene Cozy
+  trigger:
+    - platform: state
+      entity_id: input_select.scene_home     
+      to: 'Cozy' 
+  action:
+    - service: input_select.select_option
+      data_template:
+        entity_id: input_select.scene_living, input_select.scene_bathroom, input_select.scene_bedroom
+        option: 'Cozy'
+    - service: input_select.select_option
+      data_template:
+        entity_id: input_select.scene_hallway, input_select.scene_laundry
+        option: 'Normal'
+
+

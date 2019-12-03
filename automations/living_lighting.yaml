@@ -4,18 +4,19 @@
     - platform: state
       entity_id: input_select.scene_living
     - platform: state
-      entity_id: variable.lighting_automation_enabled
+      entity_id: input_boolean.lighting_automation_enabled
   condition:
+    - condition: state
+      entity_id: input_boolean.lighting_automation_enabled
+      state: 'on'
     - condition: template
-      value_template: "{{ (states('variable.lighting_automation_enabled')|int) == 1 }}"
+      value_template: "{{ states('input_select.scene_living') != 'Out' }}"
   action:
     - service: switch.turn_on 
       data_template: 
         entity_id: >
-          {% if states('input_select.scene_living') == 'Working' %}
-          switch.living_lighting_dining
-          {% elif states('input_select.scene_living') == 'Waking up' %}
-          switch.living_lighting_dining, switch.kitchen_lighting
+          {% if states('input_select.scene_living') == 'Normal' %}
+          switch.sonoff, switch.sonoff_2
           {% elif states('input_select.scene_living') == 'Cozy' %}
           switch.sonoff, switch.sonoff_2
           {% elif states('input_select.scene_living') == 'Movie' %}
@@ -24,22 +25,23 @@
           switch.living_lighting_dining, switch.kitchen_lighting, switch.living_lighting_lounge
           {% endif %}
 
+# TODO there are two variants, only one conf          
 - alias: Living Lighting Scene Off
   trigger:
     - platform: state
       entity_id: input_select.scene_living
     - platform: state
-      entity_id: variable.lighting_automation_enabled
+      entity_id: iput_boolean.lighting_automation_enabled
   action:
     - service: switch.turn_off
       data_template: 
         entity_id: >
-          {% if states('input_select.scene_living') == 'Working' %}
-          switch.living_lighting_kitchen
+          {% if states('input_select.scene_living') == 'Normal' %}
+          switch.kitchen_lighting, switch.living_lighting_lounge, switch.living_lighting_dining
           {% elif states('input_select.scene_living') == 'Cozy' or states('input_select.scene_living') == 'Movie' %}
           switch.living_lighting_dining, switch.kitchen_lighting, switch.living_lighting_lounge
-          {% elif states('input_select.scene_living') == 'Out' or states('input_select.scene_living') == 'Sleeping' %}
-          switch.living_lighting_dining, switch.kitchen_lighting, switch.living_lighting_lounge, switch.sonoff, switch_sonoff_2
+          {% elif states('input_select.scene_living') == 'Out' %}
+          switch.living_lighting_dining, switch.kitchen_lighting, switch.living_lighting_lounge, switch.sonoff, switch.sonoff_2
           {% elif states('input_select.scene_living') == 'Cleaning' %}
           switch.sonoff, switch.sonoff_2
           {% endif %}

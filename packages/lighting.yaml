@@ -3,3 +3,8 @@ variable:
     value: false
     attributes:
       friendly_name: Is Lighting Automation Enabled
+
+input_boolean:
+  lighting_automation_enabled:
+    initial: off
+    name: Lighting Automation

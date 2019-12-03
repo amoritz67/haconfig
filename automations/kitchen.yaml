@@ -5,12 +5,13 @@
       entity_id: binary_sensor.motion_sensor_158d0002f9c772
       to: 'on'
     - platform: state
-      entity_id: variable.lighting_automation_enabled
+      entity_id: input_boolean.lighting_automation_enabled
   condition:
     condition: and
     conditions:
-      - condition: template
-        value_template: "{{ (states('variable.lighting_automation_enabled')|int) == 1 }}"
+      - condition: state
+        entity_id: input_boolean.lighting_automation_enabled
+        state: 'on'
       - condition: template
         value_template: "{{ states('input_select.scene_living') != 'Movie' and states('input_select.scene_living') != 'Cozy' }}"
   action:
@@ -18,12 +19,11 @@
       data:
         entity_id: switch.kitchen_lighting
 
-- alias: Set Kitchen Light off   
+- alias: Set Kitchen Light off Motion  
   trigger:
     - platform: state
-      entity_id: switch.kitchen_lighting
-      to: 'on'
-      for: '00:02:00'
+      entity_id: binary_sensor.motion_sensor_158d0002f9c772 
+      to: 'off'
   condition: 
     condition: template
     value_template: "{{ states('input_select.scene_living') != 'Cleaning' }}"
@@ -31,4 +31,4 @@
     - service: switch.turn_off
       data:
         entity_id: switch.kitchen_lighting
-
+        

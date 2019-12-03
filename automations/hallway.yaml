@@ -1,3 +1,5 @@
+# automation for landing light in landing.yaml
+
 # switch light on when motion hall detected and lighting enabled
 #
 - alias: Set Hallway Light on
@@ -6,41 +8,64 @@
       entity_id: binary_sensor.motion_sensor_158d0002f9c944
       to: 'on'
     - platform: state
-      entity_id: variable.lighting_automation_enabled
+      entity_id: input_boolean.lighting_automation_enabled
   condition:
-    - condition: template
-      value_template: "{{ (states('variable.lighting_automation_enabled')|int) == 1 }}"
+    - condition: state
+      entity_id: input_boolean.lighting_automation_enabled
+      state: 'on'
   action:
-    - service: switch.turn_off
+    - service: switch.turn_on
       data:
         entity_id: switch.hallway_lighting
+
 - alias: Set Hallway Light off   
   trigger:
     - platform: state
-      entity_id: switch.hallway_lighting
-      to: 'on'
-      for: '00:02:00'
+      entity_id: binary_sensor.motion_sensor_158d0002f9c944
+      to: 'off'
+      #for: '00:02:00'
+  condition:
+    - condition: template
+      value_template: "{{ states('input_select.scene_hallway') != 'Visitors'}}"
   action:
     - service: switch.turn_off
       data:
         entity_id: switch.hallway_lighting
 
-- alias: Detect Wake up Mode
+- alias: Set frontdoor Light on
   trigger:
     - platform: state
-      entity_id: binary_sensor.motion_sensor_158d0002f9c944
-      to: 'on'
+      entity_id: input_select.scene_hallway
+      to: 'Visitors'
+    - platform: state
+      entity_id: input_boolean.lighting_automation_enabled
   condition:
-    condition: and
-    conditions:
-      - condition: time
-        after: '05:00:00'
-        before: '13:00:00'
-      - condition: state
-        entity_id: input_select.scene_living
-        state: 'Sleeping'
+    - condition: state
+      entity_id: input_boolean.lighting_automation_enabled
+      state: 'on'
+    - condition: template
+      value_template: "{{ states('input_select.scene_hallway') == 'Visitors'}}"
   action:
-    - service: input_select.select_option
+    - service: switch.turn_on
       data:
-        entity_id: input_select.scene_living
-        option: 'Waking up'
+        entity_id: switch.frontdoor_lighting, switch.hallway_lighting
+
+- alias: Set Frontdoor Lighting off
+  trigger:
+    - platform: state
+      entity_id: input_select.scene_hallway
+    - platform: state
+      entity_id: input_boolean.lighting_automation_enabled
+  condition:
+    condition: or
+    conditions:
+      - condition: state
+        entity_id: input_boolean.lighting_automation_enabled
+        state: 'on'
+      - condition: template
+        value_template: "{{ states('input_select.scene_hallway') != 'Visitor'}}"
+  action:
+    - service: switch.turn_off
+      data:
+        entity_id: switch.frontdoor_lighting, switch.hallway_lighting
+
